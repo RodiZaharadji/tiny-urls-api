@@ -1,0 +1,30 @@
+version: "3.8"
+
+name: tiny
+
+services:
+  test:
+    build:
+      context: ../..
+      dockerfile: deployment/docker/Dockerfile
+      target: run-development
+    command: pytest -vv --cov=./gr --cov-report=term-missing
+    hostname: tiny-test
+    restart: always
+    env_file: ../../.env.test
+    links:
+      - pg-test
+    depends_on:
+      - pg-test
+    environment:
+      SQLALCHEMY_DATABASE_URI: "postgresql+asyncpg://tiny:tiny@pg-test/tiny"
+    volumes:
+      - ../..:/tiny/src
+
+  pg-test:
+    image: postgres:13
+    hostname: pg-test
+    environment:
+      POSTGRES_DB: tiny
+      POSTGRES_USER: tiny
+      POSTGRES_PASSWORD: tiny

@@ -1,0 +1,23 @@
+# Test your FastAPI endpoints
+
+POST http://127.0.0.1:8095/shorten
+Accept: application/json
+Content-Type: application/json
+
+{
+  "url": "https://googlr.com",
+  "shortcode": "testsd"
+}
+
+###
+
+GET http://127.0.0.1:8095/testsd
+Accept: application/json
+
+###
+
+
+GET http://127.0.0.1:8095/testsd/status
+Accept: application/json
+
+###

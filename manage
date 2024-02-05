@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+case $1 in
+  "main") docker-compose -f deployment/docker/docker-compose.yml "${@:2}";;
+  "test") docker-compose -f deployment/docker/docker-compose.test.yml "${@:2}";;
+  "makemigrations") docker-compose -f deployment/docker/docker-compose.yml run --rm api alembic -c 'alembic/alembic.ini' revision --autogenerate "${@:2}";;
+  "migrate") docker-compose -f deployment/docker/docker-compose.yml run --rm api alembic -c 'alembic/alembic.ini' upgrade head "${@:2}";;
+  *) docker-compose -f deployment/docker/docker-compose.yml run --rm api python -m tu "${@:1}";;
+esac
