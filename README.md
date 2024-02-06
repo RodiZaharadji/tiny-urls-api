@@ -9,6 +9,11 @@
 cp .env.template .env
 ```
 
+- Init database
+```bash
+./manage migrate
+```
+
 - Run project
 ```bash
 ./manage main up
